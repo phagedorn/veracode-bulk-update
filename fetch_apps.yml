@@ -6,7 +6,7 @@ pool:
 
 steps:
 - task: Bash@3
-  dispalyName: Fetch Apss from Veracode Platform
+  displayName: Fetch Apss from Veracode Platform
   inputs:
     targetType: 'inline'
     script: |

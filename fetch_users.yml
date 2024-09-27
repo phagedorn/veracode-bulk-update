@@ -6,7 +6,7 @@ pool:
 
 steps:
 - task: Bash@3
-  dispalyName: Fetch Users from Veracode Platform
+  displayName: Fetch Users from Veracode Platform
   inputs:
     targetType: 'inline'
     script: |
