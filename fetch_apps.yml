@@ -1,0 +1,18 @@
+trigger:
+
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Bash@3
+  dispalyName: Fetch Apss from Veracode Platform
+  inputs:
+    targetType: 'inline'
+    script: |
+      node index.js --type profiles --actions fetch --file profiles.csv --apiID $(apiID) --apiKey $(apiKey)
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/profiles.csv'
+    ArtifactName: 'VeracodeProfiles'
