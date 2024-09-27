@@ -4384,7 +4384,7 @@ if (missingRequiredArg) {
             console.log(chalk_1.default.green('Fetching users'));
             const fetchUsersRun = yield (0, fetch_users_1.fetchUsers)(commander_plus_1.default.file, commander_plus_1.default.apiID, commander_plus_1.default.apiKey);
         }
-        process.exit(1);
+        process.exit(0);
     }
     if (commander_plus_1.default.type == 'profiles') {
         console.log(chalk_1.default.green('Working with profiles'));
@@ -4396,7 +4396,7 @@ if (missingRequiredArg) {
             console.log(chalk_1.default.green('Fetching profiles'));
             const fetchAppsRun = yield (0, fetch_apps_1.fetchApps)(commander_plus_1.default.file, commander_plus_1.default.apiID, commander_plus_1.default.apiKey);
         }
-        process.exit(1);
+        process.exit(0);
     }
 }))();
 
