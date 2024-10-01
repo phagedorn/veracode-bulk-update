@@ -4782,6 +4782,8 @@ function fetchUsers(file, apiID, apiKey) {
         csv += `"Team Admin",`;
         csv += `"Team Admin Teams"\n`;
         while (pageNumber <= totalPages) {
+            console.log(`Fetching page ${pageNumber} of ${totalPages}`);
+            
             const authHeader = yield (0, auth_1.calculateAuthorizationHeader)({
                 id: platform.cleanedID,
                 key: platform.cleanedKEY,
@@ -4789,6 +4791,7 @@ function fetchUsers(file, apiID, apiKey) {
                 url: '/api/authn/v2/users?page=' + pageNumber + '&size=' + perPage,
                 method: 'GET'
             });
+            
             const response = yield axios_1.default.get('https://' + platform.apiUrl + '/api/authn/v2/users', {
                 headers: {
                     'Authorization': authHeader
@@ -4798,8 +4801,21 @@ function fetchUsers(file, apiID, apiKey) {
                     size: perPage
                 }
             });
-            users = users.concat(response.data._embedded.users);
-            totalPages = response.data.total_pages;
+            
+            if (response.data && response.data._embedded && response.data._embedded.users) {
+                users = users.concat(response.data._embedded.users);
+            } else {
+                console.error('Unexpected response structure:', response.data);
+                break;
+            }
+            
+            if (response.data.page && response.data.page.total_pages !== undefined) {
+                totalPages = response.data.page.total_pages;
+            } else {
+                console.error('total_pages not found in response:', response.data);
+                break;
+            }
+            
             pageNumber++;
         }
         for (let user of users) {
